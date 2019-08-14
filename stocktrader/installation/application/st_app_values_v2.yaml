@@ -1,0 +1,146 @@
+#################################################################################################
+#                                          SECRETS                                              #
+#                                                                                               #
+# These secrets will hold the configuration for the IBM StockTrader Application components.     #
+# These values will be passed to their individual Helm charts which will, in turn, make them    #
+# available at runtime to the application components.                                           #
+#################################################################################################
+
+secret:
+
+  ####### Middleware #######
+
+  db:
+    # Uses the default values specified in the db2_values.yaml file in the installation/middleware folder
+    create: true
+    secret_name: stocktrader-db2
+    # db: STOCKTRD
+    db: U1RPQ0tUUkQ=
+    # host: st-db2-ibm-db2oltp-dev-db2
+    host: MTkyLjE2OC4xMi4zMQ==
+    # id: db2inst1
+    id: ZGIyaW5zdDE=
+    # port: 50000
+    port: NTAwMDA=
+    # pwd: stocktraderdb
+    pwd: c3RvY2t0cmFkZXJkYg==
+
+  redis:
+    # Uses the default values specified in the redis_values.yaml file in the installation/middleware folder
+    create: true
+    secret_name: stocktrader-redis
+    # redis://x:redispasswd@st-redis-master:6379
+    url: cmVkaXM6Ly94OnJlZGlzcGFzc3dkQHN0LXJlZGlzLW1hc3Rlcjo2Mzc5
+
+  odm:
+    # Uses the default values specified in the odm_values.yaml file in the installation/middleware folder
+    create: true
+    secret_name: stocktrader-odm
+    # url: http://st-odm-ibm-odm-dev:9060/DecisionService/rest/ICP_Trader_Dev_1/determineLoyalty
+    url: aHR0cDovL3N0LW9kbS1pYm0tb2RtLWRldjo5MDYwL0RlY2lzaW9uU2VydmljZS9yZXN0L0lDUF9UcmFkZXJfRGV2XzEvZGV0ZXJtaW5lTG95YWx0eQ==
+
+  ####### JWT #######
+
+  jwt:
+    # Uses default values for the IBM StockTrader application
+    create: true
+    secret_name: stocktrader-jwt
+    # audience: stock-trader
+    audience: c3RvY2stdHJhZGVy
+    # issuer: http://stock-trader.ibm.com
+    issuer: aHR0cDovL3N0b2NrLXRyYWRlci5pYm0uY29t
+
+
+#################################################################################################
+#                                        DEPLOYMENTS                                            #
+#                                                                                               #
+# The below values hold the way the IBM StockTrader Application components deployment need to   #
+# be carried out and configured. There is no need to change/modify any of the below.            #
+#################################################################################################
+
+portfolio:
+  replicaCount: 1
+  revisionHistoryLimit: 1
+  image:
+    repository: stocktraders
+    name: portfolio
+    tag: latest
+    pullPolicy: Always
+    containerPort:
+      http: 9080
+      https: 9443
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+  service:
+    type: ClusterIP
+    servicePort:
+      http: 9080
+      https: 9443
+
+###########################################
+
+stock-quote:
+  replicaCount: 1
+  revisionHistoryLimit: 1
+  image:
+    repository: stocktraders
+    name: stock-quote
+    tag: latest
+    pullPolicy: Always
+    containerPort:
+      http: 9080
+      https: 9443
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+  service:
+    type: ClusterIP
+    servicePort:
+      http: 9080
+      https: 9443
+
+###########################################
+
+trader:
+  replicaCount: 1
+  revisionHistoryLimit: 1
+  image:
+    repository: stocktraders
+    name: trader
+    tag: latest
+    pullPolicy: Always
+    containerPort:
+      http: 9080
+      https: 9443
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+  service:
+    type: ClusterIP
+    servicePort:
+      http: 9080
+      https: 9443
+
+###########################################
+
+tradr:
+  replicaCount: 1
+  revisionHistoryLimit: 1
+  image:
+    repository: ibmstocktrader
+    name: tradr
+    tag: latest
+    pullPolicy: Always
+    containerPort: 3000
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+  service:
+    type: ClusterIP
+    servicePort:
+      port: 3000

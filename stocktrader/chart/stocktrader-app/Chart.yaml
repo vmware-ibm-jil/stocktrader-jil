@@ -1,0 +1,4 @@
+apiVersion: v1
+description: IBM StockTrader application
+name: stocktrader-app
+version: 0.2.0

@@ -1,0 +1,10 @@
+dependencies:
+  - name: portfolio
+    repository: https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts
+    version: 2.0.0
+  - name: stock-quote
+    repository: https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts
+    version: 1.0.0
+  - name: trader
+    repository: https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts
+    version: 2.0.0
