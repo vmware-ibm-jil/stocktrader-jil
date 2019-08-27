@@ -87,7 +87,7 @@ stock-quote:
   image:
     repository: stocktraders
     name: stock-quote
-    tag: latest
+    tag: v1
     pullPolicy: Always
     containerPort:
       http: 9080
