@@ -17,13 +17,13 @@ secret:
     # db: STOCKTRD
     db: U1RPQ0tUUkQ=
     # host: st-db2-ibm-db2oltp-dev-db2
-    host: MTkyLjE2OC4xMi4zMQ==
+    host: MTcyLjE2LjAuMjIxCg==
     # id: db2inst1
     id: ZGIyaW5zdDE=
     # port: 50000
     port: NTAwMDA=
     # pwd: stocktraderdb
-    pwd: c3RvY2t0cmFkZXJkYg==
+    pwd: ZGIyaW5zdDEK
 
   redis:
     # Uses the default values specified in the redis_values.yaml file in the installation/middleware folder
@@ -108,9 +108,9 @@ trader:
   replicaCount: 1
   revisionHistoryLimit: 1
   image:
-    repository: stocktraders
+    repository: ibmstocktrader
     name: trader
-    tag: latest
+    tag: basicregistry
     pullPolicy: Always
     containerPort:
       http: 9080
@@ -120,7 +120,7 @@ trader:
         cpu: 200m
         memory: 300Mi
   service:
-    type: ClusterIP
+    type: NodePort
     servicePort:
       http: 9080
       https: 9443

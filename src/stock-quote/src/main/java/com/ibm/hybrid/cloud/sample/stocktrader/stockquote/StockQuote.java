@@ -214,7 +214,7 @@ public class StockQuote extends Application {
 //	@RolesAllowed({"StockTrader", "StockViewer"}) //Couldn't get this to work; had to do it through the web.xml instead :(
 	/**  Get stock quote from API Connect */
 	public Quote getStockQuote(@PathParam("symbol") String symbol) throws IOException {
-		if (symbol.equalsIgnoreCase(TEST_SYMBOL)) return getTestQuote(TEST_SYMBOL, TEST_PRICE);
+if (symbol.equalsIgnoreCase(TEST_SYMBOL)) return getTestQuote(TEST_SYMBOL, TEST_PRICE);
 		if (symbol.equalsIgnoreCase(SLOW_SYMBOL)) return getSlowQuote();
 		if (symbol.equalsIgnoreCase(FAIL_SYMBOL)) { //to help test Istio retry policies
 			logger.info("Throwing a RuntimeException for symbol FAIL!");
@@ -226,49 +226,41 @@ public class StockQuote extends Application {
 			Jedis jedis = jedisPool.getResource(); //Get a connection from the pool
 			if (jedis==null) logger.warning("Unable to get connection to Redis from pool");
 
-            Set<String> keys = jedis.keys("*");
+	                Set<String> keys = jedis.keys("*");
 
 			if(keys.isEmpty())
 			{
+			    long time = 1467028800000L;
 			    //Put in Redis so it's there next time we ask
-			    jedis.set((new Quote("IBM", 155.23, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("VMWARE", 163, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("PEPSI", 128, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("COKE", 292.60, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("TESLA", 234.34, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("STARBUCKS", 155.23, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("WORKDAY", 95.23, "2019-06-26", 1467028800000)).toString());
-			    jedis.set((new Quote("AUTODESK", 147.76, "2019-06-26", 1467028800000)).toString());
-
-			    /*jedis.set("IBM", '{"symbol": "IBM", "price": 155.23, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("VMWARE", '{"symbol": "VMWARE", "price": 163, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("PEPSI", '{"symbol": PEPSI, "price": 128, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("COKE", '{"symbol": "COKE", "price": 292.60, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("TESLA", '{"symbol": "TESLA", "price": 234.34, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("STARBUCKS", '{"symbol": "STARBUCKS", "price": 95.51, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("WORKDAY", '{"symbol": "WORKDAY", "price": 195.83, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("AUTODESK", '{"symbol": "AUTODESK", "price": 147.76, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("PAYPAL", '{"symbol": "PAYPAL", "price": 109.09, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("CISCO", '{"symbol": "CISCO", "price": 53.25, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("IDEXX", '{"symbol": "IDEXX", "price": 268.71, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("AMGEN", '{"symbol": "AMGEN", "price": 187.22, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("CELGENE", '{"symbol": "CELGENE", "price": 93.87, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("MCDONALD", '{"symbol": "MCDONALD", "price": 214.55, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("APPLE", '{"symbol": "APPLE", "price": 204.15, "date": "2019-06-26", "time": 1467028800000}');
-                jedis.set("BOEING", '{"symbol": "BOEING", "price": 339, "date": "2019-06-26", "time": 1467028800000}');*/
+			    jedis.set("IBM", (new Quote("IBM", 155.23, "2019-06-26", time)).toString());
+			    jedis.set("VMWARE", (new Quote("VMWARE", 163, "2019-06-26", time)).toString());
+			    jedis.set("PEPSI", (new Quote("PEPSI", 128, "2019-06-26", time)).toString());
+			    jedis.set("COKE", (new Quote("COKE", 292.60, "2019-06-26", time)).toString());
+			    jedis.set("TESLA", (new Quote("TESLA", 234.34, "2019-06-26", time)).toString());
+			    jedis.set("STARBUCKS", (new Quote("STARBUCKS", 155.23, "2019-06-26", time)).toString());
+			    jedis.set("WORKDAY", (new Quote("WORKDAY", 95.23, "2019-06-26", time)).toString());
+			    jedis.set("AUTODESK", (new Quote("AUTODESK", 147.76, "2019-06-26", time)).toString());
+			    jedis.set("PAYPAL", (new Quote("PAYPAL", 109.09, "2019-06-26", time)).toString());
+			    jedis.set("CISCO", (new Quote("CISCO", 53.25, "2019-06-26", time)).toString());
+         	            jedis.set("INDEXX", (new Quote("INDEXX", 268.71, "2019-06-26", time)).toString());
+               	 	    jedis.set("AMGEN", (new Quote("AMGEN", 187.22, "2019-06-26", time)).toString());
+	                    jedis.set("CELGENE", (new Quote("CELGENE", 93.87, "2019-06-26", time)).toString());
+	                    jedis.set("MCDONALD", (new Quote("MCDONALD", 214.55, "2019-06-26", time)).toString());
+	                    jedis.set("APPLE", (new Quote("APPLE", 204.15, "2019-06-26", time)).toString());
+			    jedis.set("BOEING", (new Quote("BOEING", 339, "2019-06-26", time)).toString());
 			}
 
 			logger.info("Getting "+symbol+" from Redis");
 			String cachedValue = jedis.get(symbol); //Try to get it from Redis
-            if(cachedValue != null)
-            {
-                logger.info("Found this in Redis for "+symbol+": "+cachedValue);
+            		if(cachedValue != null)
+            		{
+                	     logger.info("Found this in Redis for "+symbol+": "+cachedValue);
 
-                Jsonb jsonb = JsonbBuilder.create();
-                quote = jsonb.fromJson(cachedValue, Quote.class);
-            }
+	                     Jsonb jsonb = JsonbBuilder.create();
+             	             quote = jsonb.fromJson(cachedValue, Quote.class);
+	                }
 
-            /**
+            		/**
 			if (cachedValue == null) { //It wasn't in Redis
 				logger.info(symbol+" wasn't in Redis so we will try to put it there");
 				quote = apiConnectClient.getStockQuoteViaAPIConnect(symbol); //so go get it like we did before we'd ever heard of Redis
@@ -304,7 +296,7 @@ public class StockQuote extends Application {
 
 			logger.info("Completed getting stock quote - releasing Redis resources");
 			jedis.close(); //Release resource
-		} catch (Throwable t) {
+ 	 	    } catch (Throwable t) {
 			logException(t);
 			
 			//something went wrong using Redis.  Fall back to the old-fashioned direct approach
@@ -316,7 +308,7 @@ public class StockQuote extends Application {
 				logException(t2);
 				return getTestQuote(symbol, ERROR);
 			}*/
-		} /**else {
+	            } /**else {
 			//Redis not configured.  Fall back to the old-fashioned direct approach
 			try {
 				logger.warning("Redis URL not configured, so driving call directly to API Connect");
@@ -326,11 +318,10 @@ public class StockQuote extends Application {
 				logException(t3);
 				return getTestQuote(symbol, ERROR);
 			}
-		} */
+		    } */
 
 		return quote;
 	}
-
 	/** When API Connect is unavailable, fall back to calling IEX directly to get the stock quote */
 	/**public Quote getStockQuoteViaIEX(String symbol) throws IOException {
 		logger.info("Using fallback method getStockQuoteViaIEX");
