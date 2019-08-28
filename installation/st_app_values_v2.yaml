@@ -22,7 +22,7 @@ secret:
     id: ZGIyaW5zdDE=
     # port: 50000
     port: NTAwMDA=
-    # pwd: stocktraderdb
+    # pwd: db2inst1
     pwd: ZGIyaW5zdDEK
 
   redis:
