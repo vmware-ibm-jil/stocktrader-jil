@@ -26,14 +26,14 @@ The overall architecture looks like the following diagram:
 <img alt="st-v2" src="images/stocktrader_v2_no_numbers.png"/>
 </p>
 
-Where you can find StockTrader specific microservices in blue and IBM middleware in purple all running on IBM Cloud Private (ICP), IBM Cloud Public services in green and other third party applications in other different colours.
+Where you can find StockTrader specific microservices in blue and IBM middleware in purple all running on OpenStack Container Platform (OCP).
 
 ## Prerequisites
 
 * IBM Cloud Private or OpenShift Containr Platform installed
 * IBM Cloud public account (trial account can be used)
 
-The following installation instructions guide you through installing the dependent software (DB2, MQ, etc) and configuring it for use by the stocktrader application. 
+The following installation instructions guide you through installing the dependent software (DB2, Redis, etc) and configuring it for use by the stocktrader application. 
 
 
 ## Installation
@@ -150,8 +150,6 @@ We are set to use external db2 server.
 
 1. Install Redis using the [redis_values.yaml](installation/redis_values.yaml) file:
 
-**Note:** Make sure to [add an image policy](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/manage_images/image_security.html) in ICP console (Manage->Resource Security->Image Policies) to allow pulling images from `docker.io/bitnami/redis:*` registry.
-
 ```
 $ helm install -n st-redis --namespace stocktrader stable/redis -f installation/redis_values.yaml
 ```
@@ -175,7 +173,7 @@ The IBM StockTrader Application can be deployed to OpenShift Container Platform 
 
 As we have done for the middleware pieces installed on the previous section, the IBM StockTrader Application installation will be done by passing the desired values/configuration for some its components through a values file called [st_app_values_v2.yaml](installation/st_app_values_v2.yaml). This way, the IBM StockTrader Application Helm chart is the template/structure/recipe of what components and Kubernetes resources the IBM StockTrader Application is made up of while the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file specifies the configuration these need to take based on your credentials, environments, needs, etc.
 
-As a result, we need to look at the [st_app_values_v2.yaml](installation/application/st_app_values_v2.yaml) file to make sure the middleware configuration matches how we have deployed such middleware in the previous section and **provide the appropriate configuration and credentials for the services the IBM StockTrader Application integrates with**.
+As a result, we need to look at the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file to make sure the middleware configuration matches how we have deployed such middleware in the previous section and **provide the appropriate configuration and credentials for the services the IBM StockTrader Application integrates with**.
 
 #### Configure
 
@@ -193,11 +191,9 @@ Now we look at each of the above points in the [st_app_values_v2.yaml](installat
 echo -n "<the_value_you_want_to_encode>" | base64
 ```
 
-`stocktrader.ibm.com` **must be added to your hosts file** to point to your ICP Master node IP.
+`stocktrader.ibm.com` **must be added to your hosts file** to point to your OCP Master node IP.
 
 1. Add the IBM StockTrader Helm repository:
-
-**Note:** Make sure to [add an image policy](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.1/manage_images/image_security.html) in ICP console (Manage->Resource Security->Image Policies) to allow pulling images from `docker.io/ibmstocktrader/*` registry.
 
 ```
 $ helm repo add stocktrader https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts
@@ -209,12 +205,12 @@ stocktrader                 https://raw.githubusercontent.com/ibm-cloud-architec
 ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/  
 ```
 
-2. Deploy the IBM StockTrader Application using the [st_app_values_v2.yaml](installation/application/st_app_values_v2.yaml) file:
+2. Deploy the IBM StockTrader Application using the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file:
 
-**TIP:** Remember you can use the **--set variable=value** to overwrite values within the [st_app_values_v2.yaml](installation/application/st_app_values_v2.yaml) file.
+**TIP:** Remember you can use the **--set variable=value** to overwrite values within the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file.
 
 ```
-$ helm install -n test --namespace stocktrader -f installation/application/st_app_values_v2.yaml stocktrader/stocktrader-app --version "0.2.0" --set trader.image.tag=basicregistry
+$ helm install -n test --namespace stocktrader -f installation/st_app_values_v2.yaml stocktrader/stocktrader-app --version "0.2.0" --set trader.image.tag=basicregistry
 ```
 
 ## Verification
