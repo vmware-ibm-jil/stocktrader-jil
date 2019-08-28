@@ -30,8 +30,7 @@ Where you can find StockTrader specific microservices in blue and IBM middleware
 
 ## Prerequisites
 
-* IBM Cloud Private or OpenShift Containr Platform installed
-* IBM Cloud public account (trial account can be used)
+* OpenShift Containr Platform installed
 
 The following installation instructions guide you through installing the dependent software (DB2, Redis, etc) and configuring it for use by the stocktrader application. 
 
@@ -123,7 +122,7 @@ ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/rep
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com
 ```
 
-### IBM DB2
+#### IBM DB2
 
 Create a secret that holds your Docker Hub credentials.
 
@@ -174,14 +173,6 @@ The IBM StockTrader Application can be deployed to OpenShift Container Platform 
 As we have done for the middleware pieces installed on the previous section, the IBM StockTrader Application installation will be done by passing the desired values/configuration for some its components through a values file called [st_app_values_v2.yaml](installation/st_app_values_v2.yaml). This way, the IBM StockTrader Application Helm chart is the template/structure/recipe of what components and Kubernetes resources the IBM StockTrader Application is made up of while the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file specifies the configuration these need to take based on your credentials, environments, needs, etc.
 
 As a result, we need to look at the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file to make sure the middleware configuration matches how we have deployed such middleware in the previous section and **provide the appropriate configuration and credentials for the services the IBM StockTrader Application integrates with**.
-
-#### Configure
-
-The following picture shows the points where we need to provide configuration/credentials for in the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file to successfully install the IBM StockTrader Application:
-
-<p align="center">
-<img alt="st-integration" src="images/stocktrader_integration.png"/>
-</p>
 
 Now we look at each of the above points in the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file to see what we need to provide.
 
