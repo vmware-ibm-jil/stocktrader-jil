@@ -34,6 +34,43 @@ Where you can find StockTrader specific microservices in blue and IBM middleware
 
 The following installation instructions guide you through installing the dependent software (DB2, Redis, etc) and configuring it for use by the stocktrader application. 
 
+### Helm
+ 
+If don't have helm install, here are the steps to configure the v2.14.1 helm version with Openshift Container Platform:
+
+```
+$ oc new-project $TILLER_NAMESPACE
+$ export TILLER_NAMESPACE=$TILLER_NAMESPACE
+$ oc project $TILLER_NAMESPACE
+$ curl -s https://storage.googleapis.com/kubernetes-helm/helm-v2.14.1-linux-amd64.tar.gz | tar xz
+$ cd linux-amd64
+$ ./helm init --client-only
+$ oc process -f https://github.com/openshift/origin/raw/master/examples/helm/tiller-template.yaml -p TILLER_NAMESPACE="${TILLER_NAMESPACE}" -p HELM_VERSION=v2.14.1 | oc create -f -
+$ oc rollout status deployment tiller
+$ ./helm version
+$ oc policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:tiller"
+$ oc adm policy add-scc-to-user privileged -n stocktrader -z default
+```
+
+Refer this link [Steps to set up the Helm CLI to work with Openshift Container Platform.](https://blog.openshift.com/getting-started-helm-openshift/)
+
+We need to add the IBM Helm chart repository to our local Helm chart repositories:
+
+```
+$ helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
+"ibm-charts" has been added to your repositories
+$ helm repo list
+NAME                    	URL                                                                                                      
+stable                  	https://kubernetes-charts.storage.googleapis.com                                                         
+local                   	http://127.0.0.1:8879/charts                                                                             
+ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
+```
+
+(\*) If you don't have a **stable** Helm repo pointing to https://kubernetes-charts.storage.googleapis.com, please add it too using:
+
+```
+$ helm repo add stable https://kubernetes-charts.storage.googleapis.com
+```
 
 ## Installation
 ### Get The Code
@@ -84,43 +121,6 @@ st-rolebinding   RoleBinding.v1.rbac.authorization.k8s.io   1 item(s)
 
 ### Middleware
 IBM middleware will be installed using Helm charts as much as possible. Therefore, we need to install the helm first:
-
-#### Helm
-Here are the steps to configure the v2.14.1 version helm with Openshift Container Platform:
-
-```
-$ oc new-project $TILLER_NAMESPACE
-$ export TILLER_NAMESPACE=$TILLER_NAMESPACE
-$ oc project $TILLER_NAMESPACE
-$ curl -s https://storage.googleapis.com/kubernetes-helm/helm-v2.14.1-linux-amd64.tar.gz | tar xz
-$ cd linux-amd64
-$ ./helm init --client-only
-$ oc process -f https://github.com/openshift/origin/raw/master/examples/helm/tiller-template.yaml -p TILLER_NAMESPACE="${TILLER_NAMESPACE}" -p HELM_VERSION=v2.14.1 | oc create -f -
-$ oc rollout status deployment tiller
-$ ./helm version
-$ oc policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:tiller"
-$ oc adm policy add-scc-to-user privileged -n stocktrader -z default
-```
-
-Refer this link [Steps to set up the Helm CLI to work with Openshift Container Platform.](https://blog.openshift.com/getting-started-helm-openshift/)
-
-We need to add the IBM Helm chart repository to our local Helm chart repositories:
-
-```
-$ helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
-"ibm-charts" has been added to your repositories
-$ helm repo list
-NAME                    	URL                                                                                                      
-stable                  	https://kubernetes-charts.storage.googleapis.com                                                         
-local                   	http://127.0.0.1:8879/charts                                                                             
-ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
-```
-
-(\*) If you don't have a **stable** Helm repo pointing to https://kubernetes-charts.storage.googleapis.com, please add it too using:
-
-```
-$ helm repo add stable https://kubernetes-charts.storage.googleapis.com
-```
 
 #### IBM DB2
 

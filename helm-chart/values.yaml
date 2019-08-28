@@ -1,17 +1,4 @@
 #################################################################################################
-#                                           ROUTE                                               #
-#                                                                                               #
-# Based on the following attributes, Helm will install the notification-twitter microsercive or #
-# the notification-slack microservice with their appropriate kubernetes resources.              #
-# They are MUTUALLY EXCLUSIVE. That is, enable only one of them.                                #
-#################################################################################################
-route:
-  slack:
-    enabled: false
-  twitter:
-    enabled: false
-
-#################################################################################################
 #                                          SECRETS                                              #
 #                                                                                               #
 # These secrets will hold the configuration for the IBM StockTrader Application components.     #
