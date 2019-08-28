@@ -11,9 +11,9 @@
       - [IBM ODM](#ibm-odm)
       - [Redis](#redis)
     - [Application](#application)
-      - [Configure](#configure)
 4.  [Verification](#verification)
 5.  [Uninstallation](#uninstallation)
+6.  [Files](#files)
 
 
 ## Introduction
@@ -168,13 +168,9 @@ $ helm install -n st-odm --namespace stocktrader ibm-charts/ibm-odm-dev -f insta
 
 ### Application
 
-The IBM StockTrader Application can be deployed to OpenShift Container Platform (OCP) using Helm charts. All the microservices that make up the application have been packaged into a Helm chart. They could be deployed individually using their Helm chart or they all can be deployed at once using the main umbrella IBM StockTrader Application Helm chart which is stored in this repository under the **chart/stocktrader-app** folder. This Helm chart, along with each IBM StockTrader Application microservice's Helm chart, is latter packaged and stored in the IBM StockTrader Helm chart repository at https://github.com/ibm-cloud-architecture/stocktrader-helm-repo/
+The IBM StockTrader Application can be deployed to OpenShift Container Platform (OCP) using Helm charts. All the microservices that make up the application have been packaged into a Helm chart. They could be deployed individually using their Helm chart or they all can be deployed at once using the main umbrella IBM StockTrader Application Helm chart.
 
 As we have done for the middleware pieces installed on the previous section, the IBM StockTrader Application installation will be done by passing the desired values/configuration for some its components through a values file called [st_app_values_v2.yaml](installation/st_app_values_v2.yaml). This way, the IBM StockTrader Application Helm chart is the template/structure/recipe of what components and Kubernetes resources the IBM StockTrader Application is made up of while the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file specifies the configuration these need to take based on your credentials, environments, needs, etc.
-
-As a result, we need to look at the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file to make sure the middleware configuration matches how we have deployed such middleware in the previous section and **provide the appropriate configuration and credentials for the services the IBM StockTrader Application integrates with**.
-
-Now we look at each of the above points in the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file to see what we need to provide.
 
 **IMPORTANT:** The **values for the variables belonging to secrets** in the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file **must be base64 encoded**. As a result, whatever the value you want to set the following **secret variables** with, they first need to be encoded using this command:
 
@@ -192,7 +188,7 @@ $ helm repo list
 NAME                    	URL                                                                                                      
 stable                  	https://kubernetes-charts.storage.googleapis.com                                                         
 local                   	http://127.0.0.1:8879/charts                                                                             
-stocktrader                 https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts                      
+stocktrader                     https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts                      
 ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/  
 ```
 
@@ -221,12 +217,45 @@ test      1         Tue Jan 22 20:36:34 2019  DEPLOYED  stocktrader-app-0.2.0
 export NODE_PORT=$(kubectl get --namespace stocktrader -o jsonpath="{.spec.ports[1].nodePort}" services trader-service)
 export NODE_IP=$(kubectl get nodes --namespace stocktrader -o jsonpath="{.items[0].status.addresses[0].address}")
 
--- Get the application console link --
+Get the application console link
 
 ```
 echo https://$NODE_IP:$NODE_PORT/trader/login
 ```
 
+2. Open the IBM StockTrader Application by pointing your browser to `https://stocktrader.ibm.com/trader/login`
+
+<p align="center">
+<img alt="st-login" src="images/resiliency14.png" width="500"/>
+</p>
+
+**IMPORTANT:** Depending on what version of the **Trader** microservice (`basicregistry` or `latest`) you have deployed, the login screen will look differently. In the image above, we are showing the "simplest" path which is using the `basicregistry` version.
+
+3. Log into the IBM StockTrader Application using User ID `stock` and Password `trader`:
+
+<p align="center">
+<img alt="st-app" src="images/resiliency15.png" width="500"/>
+</p>
+
+**IMPORTANT:** Again, based on the **Trader** BFF microservice version you deploy, you will use the aforementioned credentials or your IBMid credentials.
+
+4. Click on Create a new portfolio and submit in order to create a test portfolio. Introduce the name for the portfolio you like the most and click on submit:
+
+<p align="center">
+<img alt="st-create" src="images/resiliency16.png" width="500"/>
+</p>
+
+5. With your newly created portfolio selected, click on Update selected portfolio (add stock) and submit. Then, introduce `IBM` and `400` for the Stock Symbol and Number of Shares fields respectively and click submit:
+
+<p align="center">
+<img alt="st-add" src="images/resiliency17.png" width="500"/>
+</p>
+
+6. Your IBM StockTrader application should now have a portfolio with 400 IBM shares:
+
+<p align="center">
+<img alt="st-summary" src="images/resiliency18.png" width="500"/>
+</p>
 ## Uninstallation
 
 Since we have used `Helm` to install both the IBM StockTrader Application and the IBM (and third party) middleware the application needs, we then only need to issue the `helm delete <release_name> --purge --tls ` command to get all the pieces installed by a Helm release `<release_name>` uninstalled:
@@ -237,3 +266,16 @@ As an example, in order to delete all the IBM StockTrader Application pieces ins
 $ helm delete test --purge --tls
 release "test" deleted
 ```
+
+## Files
+
+This section will describe each of the files presented in this repository.
+
+#### installation - application
+
+- [st_app_values_v2.yaml](installation/st_app_values_v2.yaml): Default IBM StockTrader version 2 Helm chart values file.
+
+#### installation - middleware
+
+- [redis_values.yaml](installation/redis_values.yaml): tailored Redis Helm chart values file with the default values that the IBM StockTrader Helm chart expects.
+- [odm_values.yaml](installation/odm_values.yaml): tailored IBM Operation Decision Manager (ODM) Helm chart values file with the default values that the IBM StockTrader Helm chart expects.
