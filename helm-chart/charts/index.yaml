@@ -1,0 +1,80 @@
+piVersion: v1
+entries:
+  loyalty-level:
+  - apiVersion: v1
+    appVersion: icp-v1.0
+    created: 2018-09-06T11:21:32.445675+02:00
+    description: A Helm chart for the loyalty level microservice of the StockTrader
+      application.
+    digest: 1922531f312971a16466cde75a7b9cff2485263ab67e45d9bcbc4136e94f376b
+    name: loyalty-level
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/loyalty-level-1.0.0.tgz
+    version: 1.0.0
+  portfolio:
+  - apiVersion: v1
+    appVersion: icp-v1.0
+    created: 2018-09-06T11:21:32.447246+02:00
+    description: A Helm chart for the portfolio microservice of the StockTrader application.
+    digest: b51b28bc26736c3e2a9d53bd261ce6f0fd5292509b2a52048becc1bb36e53973
+    name: portfolio
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/portfolio-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v1
+    appVersion: icp-v1.0
+    created: 2018-09-06T11:21:32.446852+02:00
+    description: A Helm chart for the portfolio microservice of the StockTrader application.
+    digest: 2fd3c62aeb0384c24ead89c158fe55098734a8f0a09f1772eb24855fcae165a5
+    name: portfolio
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/portfolio-1.0.0.tgz
+    version: 1.0.0
+  stock-quote:
+  - apiVersion: v1
+    appVersion: icp-v1.0
+    created: 2018-09-06T11:21:32.447535+02:00
+    description: A Helm chart for the stock quote microservice of the StockTrader
+      application.
+    digest: cfcc8014eaee02d83fb91e54f3173c5afbbe0f8e617bd9f96a609acbdb829783
+    name: stock-quote
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/stock-quote-1.0.0.tgz
+    version: 1.0.0
+  stocktrader-app:
+  - apiVersion: v1
+    created: 2018-09-06T11:21:32.451162+02:00
+    description: IBM StockTrader application
+    digest: b8ff9b9f2819de55f8c0c70a20581819e382f79ffbd72d9a842f72c9cb746255
+    name: stocktrader-app
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/stocktrader-app-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v1
+    created: 2018-09-06T11:21:32.449014+02:00
+    description: IBM StockTrader application
+    digest: e0ab17b03e84e861c04973502ea4c9150eff405bc0ab4b2daaacb9b78624b871
+    name: stocktrader-app
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/stocktrader-app-0.1.0.tgz
+    version: 0.1.0
+  trader:
+  - apiVersion: v1
+    appVersion: icp-v1.0
+    created: 2018-09-06T11:21:32.452554+02:00
+    description: A Helm chart for the trader microservice of the StockTrader application.
+    digest: b65ba0a58c3fc08f16d18003c73301c6794ccdf4f8f29177f9a3b51dc6b1f7ed
+    name: trader
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/trader-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v1
+    appVersion: icp-v1.0
+    created: 2018-09-06T11:21:32.451588+02:00
+    description: A Helm chart for the trader microservice of the StockTrader application.
+    digest: 7c65300acb57b0adafd76e08c07aa44e24e4c0407441c5075adfb6c6de36c061
+    name: trader
+    urls:
+    - https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts/trader-1.0.0.tgz
+    version: 1.0.0
+generated: 2018-09-06T11:21:32.445077+02:00
