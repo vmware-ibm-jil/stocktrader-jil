@@ -50,19 +50,6 @@ secret:
     # issuer: http://stock-trader.ibm.com
     issuer: aHR0cDovL3N0b2NrLXRyYWRlci5pYm0uY29t
 
-  ####### Tradr microservice #######
-
-  # This secret will hold the redirect uri the Tradr microservice will send to the IBMid.
-  ingress_host:
-    create: true
-    secret_name: stocktrader-ingress-host
-    # Callback host. This is the redirect URI the Tradr BFF microservice sends with
-    # its requests. This redirect URI must be configured in the IBMid SSO Client Configuration.
-    # The redirect URI is simply the ICP proxy ip
-    # host: <ICP_proxy_ip>
-    host:
-
-
 #################################################################################################
 #                                        DEPLOYMENTS                                            #
 #                                                                                               #
