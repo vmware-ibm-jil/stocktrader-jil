@@ -89,14 +89,6 @@ Resolving deltas: 100% (23/23), done.
 Checking connectivity... done.
 ```
 
-Afterwards, change directory to `stocktrader-jil` and checkout the stocktrader-jil github repository v1.o branch:
-
-```
-$ git checkout v1.0
-Switched to branch 'v1.0'
-Your branch is up to date with 'origin/v1.0'.
-```
-
 ### Platform
 
 1. Create a namespace called **stocktrader**. If you don't know how to do so, follow this [link](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_2.1.0.3/user_management/create_project.html).
@@ -183,12 +175,12 @@ echo -n "<the_value_you_want_to_encode>" | base64
 1. Add the IBM StockTrader Helm repository:
 
 ```
-$ helm repo add stocktrader https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts
+$ helm repo add stocktrader https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts
 $ helm repo list
 NAME                    	URL                                                                                                      
 stable                  	https://kubernetes-charts.storage.googleapis.com                                                         
 local                   	http://127.0.0.1:8879/charts                                                                             
-stocktrader                     https://raw.githubusercontent.com/ibm-cloud-architecture/stocktrader-helm-repo/master/docs/charts                      
+stocktrader                     https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts                      
 ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/  
 ```
 
@@ -197,7 +189,7 @@ ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/rep
 **TIP:** Remember you can use the **--set variable=value** to overwrite values within the [st_app_values_v2.yaml](installation/st_app_values_v2.yaml) file.
 
 ```
-$ helm install -n test --namespace stocktrader -f installation/st_app_values_v2.yaml stocktrader/stocktrader-app --version "0.2.0" --set trader.image.tag=basicregistry
+$ helm install -n test --namespace stocktrader -f ../stocktrader-jil/installation/st_app_values_v2.yaml --repo https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts/ stocktrader --set trader.image.tag=basicregistry
 ```
 
 ## Verification
