@@ -187,7 +187,7 @@ ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/rep
 **TIP:** Remember you can use the **--set variable=value** to overwrite values within the [default_stocktrader_values.yaml](installation/default_stocktrader_values.yaml) file.
 
 ```
-$ helm install -n test --namespace stocktrader -f ../stocktrader-jil/installation/default_stocktrader_values.yaml --repo https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts/ stocktrader --set trader.image.tag=basicregistry
+$ helm install -n test --namespace stocktrader -f ../stocktrader-jil/installation/default_stocktrader_values.yaml --repo https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts/ stocktrader-app --set trader.image.tag=basicregistry
 ```
 
 ## Verification
