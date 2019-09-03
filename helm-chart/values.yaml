@@ -26,14 +26,14 @@ secret:
     pwd: c3RvY2t0cmFkZXJkYg==
 
   redis:
-    # Uses the default values specified in the redis_values.yaml file in the installation/middleware folder
+    # Uses the default values specified in the default_redis_values.yaml file in the installation/middleware folder
     create: true
     secret_name: stocktrader-redis
     # redis://x:redispasswd@st-redis-master:6379
     url: cmVkaXM6Ly94OnJlZGlzcGFzc3dkQHN0LXJlZGlzLW1hc3Rlcjo2Mzc5
 
   odm:
-    # Uses the default values specified in the odm_values.yaml file in the installation/middleware folder
+    # Uses the default values specified in the default_odm_values.yaml file in the installation/middleware folder
     create: true
     secret_name: stocktrader-odm
     # url: http://st-odm-ibm-odm-dev:9060/DecisionService/rest/ICP_Trader_Dev_1/determineLoyalty
