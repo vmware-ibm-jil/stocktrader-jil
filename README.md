@@ -213,7 +213,7 @@ Get the application console link
 echo https://$NODE_IP:$NODE_PORT/trader/login
 ```
 
-2. Open the IBM StockTrader Application by pointing your browser to `https://stocktrader.ibm.com/trader/login`
+2. Open the IBM StockTrader Application by pointing your browser to `https://172.30.129.136:31819/trader/login`
 
 <p align="center">
 <img alt="st-login" src="images/resiliency14.png" width="500"/>
