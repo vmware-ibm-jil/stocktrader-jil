@@ -39,8 +39,8 @@ The following installation instructions guide you through installing the depende
 If don't have helm install, here are the steps to configure the v2.14.1 helm version with Openshift Container Platform:
 
 ```
+$ export TILLER_NAMESPACE=stocktrader
 $ oc new-project $TILLER_NAMESPACE
-$ export TILLER_NAMESPACE=$TILLER_NAMESPACE
 $ oc project $TILLER_NAMESPACE
 $ curl -s https://storage.googleapis.com/kubernetes-helm/helm-v2.14.1-linux-amd64.tar.gz | tar xz
 $ cd linux-amd64
@@ -253,7 +253,7 @@ Since we have used `Helm` to install both the IBM StockTrader Application and th
 As an example, in order to delete all the IBM StockTrader Application pieces installed by its Helm chart when we installed them as the `test` Helm release:
 
 ```
-$ helm delete test --purge --tls
+$ helm delete test --purge
 release "test" deleted
 ```
 
