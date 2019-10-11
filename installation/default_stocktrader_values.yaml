@@ -16,7 +16,6 @@ secret:
     secret_name: stocktrader-db2
     # db: STOCKTRD
     db: U1RPQ0tUUkQ=
-    # host: st-db2-ibm-db2oltp-dev-db2
     host: MTcyLjE2LjAuMjIxCg==
     # id: db2inst1
     id: ZGIyaW5zdDE=
