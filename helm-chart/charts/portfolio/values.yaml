@@ -1,0 +1,72 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: ibmstocktrader
+  name: portfolio
+  tag: latest
+  pullPolicy: Always
+  containerPort:
+    http: 9080
+    https: 9443
+  resources:
+    requests:
+      cpu: 200m
+      memory: 300Mi
+service:
+  # Change this to ClusterIP before releasing charts so microservices can only be reached through the ingress
+  type: NodePort
+  servicePort:
+    http: 9080
+    https: 9443
+secret:
+  mq:
+    create: false
+    secret_name: stocktrader-mq
+    # id: app
+    id: YXBw
+    pwd:
+    # host: st-mq-ibm-mq
+    host: c3QtbXEtaWJtLW1x
+    # port: 1414
+    port: MTQxNA==
+    # channel: DEV.APP.SVRCONN
+    channel: REVWLkFQUC5TVlJDT05O
+    # queue-manager: trader
+    queue_manager: dHJhZGVy
+    # queue: NotificationQ
+    queue: Tm90aWZpY2F0aW9uUQ==
+  db:
+    create: false
+    secret_name: stocktrader-db2
+    # db: STOCKTRD
+    db: U1RPQ0tUUkQ=
+    # host: st-db2-ibm-db2oltp-dev-db2
+    host: c3QtZGIyLWlibS1kYjJvbHRwLWRldi1kYjI=
+    # id: db2inst1
+    id: ZGIyaW5zdDE=
+    # port: 50000
+    port: NTAwMDA=
+    # pwd: stocktraderdb
+    pwd: c3RvY2t0cmFkZXJkYg==
+  jwt:
+    create: false
+    secret_name: stocktrader-jwt
+    # audience: stock-trader
+    audience: c3RvY2stdHJhZGVy
+    # issuer: http://stock-trader.ibm.com
+    issuer: aHR0cDovL3N0b2NrLXRyYWRlci5pYm0uY29t
+  watson:
+    create: false
+    secret_name: stocktrader-watson
+    # url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
+    url: aHR0cHM6Ly9nYXRld2F5LndhdHNvbnBsYXRmb3JtLm5ldC90b25lLWFuYWx5emVyL2FwaS92My90b25lP3ZlcnNpb249MjAxNy0wOS0yMSZzZW50ZW5jZXM9ZmFsc2U=
+    # Get your credentials at https://console.bluemix.net/catalog/services/tone-analyzer
+    id:
+    pwd:
+  odm:
+    create: false
+    secret_name: stocktrader-odm
+    # url: http://st-odm-ibm-odm-dev:9060/DecisionService/rest/ICP_Trader_Dev_1/determineLoyalty
+    url: aHR0cDovL3N0LW9kbS1pYm0tb2RtLWRldjo5MDYwL0RlY2lzaW9uU2VydmljZS9yZXN0L0lDUF9UcmFkZXJfRGV2XzEvZGV0ZXJtaW5lTG95YWx0eQ==

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-service
+  labels:
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: {{ .Chart.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: {{ .Values.service.servicePort.http }}
+      targetPort: {{ .Values.image.containerPort.http }}
+    - name: https
+      protocol: TCP
+      port: {{ .Values.service.servicePort.https }}
+      targetPort: {{ .Values.image.containerPort.https }}
+  selector:
+    app: "{{ .Release.Name }}-{{ .Chart.Name }}-selector"

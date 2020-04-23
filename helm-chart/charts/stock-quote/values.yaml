@@ -1,0 +1,36 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: ibmstocktrader
+  name: stock-quote
+  tag: latest
+  pullPolicy: Always
+  containerPort:
+    http: 9080
+    https: 9443
+  resources:
+    requests:
+      cpu: 200m
+      memory: 300Mi
+service:
+  # Change this to ClusterIP before releasing charts so microservices can only be reached through the ingress
+  type: NodePort
+  servicePort:
+    http: 9080
+    https: 9443
+secret:
+  redis:
+    create: false
+    secret_name: stocktrader-redis
+    # redis://x:<YOUR_REDIS_PASSWORD>@<REDIS_SERVICE_MASTER>:<REDIS_SERVICE_MASTER_PORT>
+    # redis://x:redispasswd@st-redis-master:6379
+    url: cmVkaXM6Ly94OnJlZGlzcGFzc3dkQHN0LXJlZGlzLW1hc3Rlcjo2Mzc5
+  jwt:
+    create: false
+    secret_name: stocktrader-jwt
+    # audience: stock-trader
+    audience: c3RvY2stdHJhZGVy
+    # issuer: http://stock-trader.ibm.com
+    issuer: aHR0cDovL3N0b2NrLXRyYWRlci5pYm0uY29t
