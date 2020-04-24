@@ -50,6 +50,7 @@ secret:
     # issuer: http://stock-trader.ibm.com
     issuer: aHR0cDovL3N0b2NrLXRyYWRlci5pYm0uY29t
 
+
 #################################################################################################
 #                                        DEPLOYMENTS                                            #
 #                                                                                               #

@@ -1,7 +1,10 @@
 dependencies:
   - name: portfolio
-    version: 2.0.0
+    version: 1.0.0
+    repository: file:///charts/portfolio
   - name: stock-quote
     version: 1.0.0
+    repository: file:///charts/stock-quote
   - name: trader
-    version: 2.0.0
+    version: 1.0.0
+    repository: file:///charts/trader
