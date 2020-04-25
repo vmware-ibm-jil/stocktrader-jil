@@ -39,41 +39,6 @@ spec:
         image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-          - name: MQ_ID
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: id
-          - name: MQ_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: pwd
-          - name: MQ_HOST
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: host
-          - name: MQ_PORT
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: port
-          - name: MQ_CHANNEL
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: channel
-          - name: MQ_QUEUE_MANAGER
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: queue-manager
-          - name: MQ_QUEUE
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.mq.secret_name }}
-                key: queue
           - name: JDBC_HOST
             valueFrom:
               secretKeyRef:

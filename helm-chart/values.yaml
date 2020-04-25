@@ -32,6 +32,33 @@ secret:
     # redis://x:redispasswd@st-redis-master:6379
     url: cmVkaXM6Ly94OnJlZGlzcGFzc3dkQHN0LXJlZGlzLW1hc3Rlcjo2Mzc5
 
+#  mq:
+#    # Uses the default values specified in the mq_values.yaml file in the installation/middleware folder
+#    create: true
+#    secret_name: stocktrader-mq
+#    # id: app
+#    id: YXBw
+#    pwd: YWJjZA==
+#    # host: st-mq-ibm-mq
+#    host: c3QtbXEtaWJtLW1x
+#    # port: 1414
+#    port: MTQxNA==
+#    # channel: DEV.APP.SVRCONN
+#    channel: REVWLkFQUC5TVlJDT05O
+#    # queue-manager: trader
+#    queue_manager: dHJhZGVy
+#    # queue: NotificationQ
+#    queue: Tm90aWZpY2F0aW9uUQ==
+
+  watson:
+    create: true
+    secret_name: stocktrader-watson
+    # url: https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21&sentences=false
+    url: aHR0cHM6Ly9nYXRld2F5LndhdHNvbnBsYXRmb3JtLm5ldC90b25lLWFuYWx5emVyL2FwaS92My90b25lP3ZlcnNpb249MjAxNy0wOS0yMSZzZW50ZW5jZXM9ZmFsc2U=
+    # Get your credentials at https://console.bluemix.net/catalog/services/tone-analyzer
+    id:
+    pwd:
+
   odm:
     # Uses the default values specified in the default_odm_values.yaml file in the installation/middleware folder
     create: true

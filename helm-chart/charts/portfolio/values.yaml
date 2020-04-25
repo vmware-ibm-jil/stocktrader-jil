@@ -26,7 +26,7 @@ secret:
     secret_name: stocktrader-mq
     # id: app
     id: YXBw
-    pwd:
+    pwd: YWJjZA==
     # host: st-mq-ibm-mq
     host: c3QtbXEtaWJtLW1x
     # port: 1414
