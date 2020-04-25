@@ -170,24 +170,12 @@ As we have done for the middleware pieces installed on the previous section, the
 echo -n "<the_value_you_want_to_encode>" | base64
 ```
 
-1. Add the IBM StockTrader Helm repository:
-
-```
-$ helm repo add stocktrader https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts
-$ helm repo list
-NAME                    	URL                                                                                                      
-stable                  	https://kubernetes-charts.storage.googleapis.com                                                         
-local                   	http://127.0.0.1:8879/charts                                                                             
-stocktrader                     https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts                      
-ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/  
-```
-
-2. Deploy the IBM StockTrader Application using the [default_stocktrader_values.yaml](installation/default_stocktrader_values.yaml) file:
+1. Deploy the IBM StockTrader Application using the [default_stocktrader_values.yaml](installation/default_stocktrader_values.yaml) file:
 
 **TIP:** Remember you can use the **--set variable=value** to overwrite values within the [default_stocktrader_values.yaml](installation/default_stocktrader_values.yaml) file.
 
 ```
-$ helm install -n test --namespace stocktrader -f ../stocktrader-jil/installation/default_stocktrader_values.yaml --repo https://raw.githubusercontent.com/vmware-ibm-jil/stocktrader-jil/v1.0/helm-chart/charts/ stocktrader-app --set trader.image.tag=basicregistry
+$ helm install -n trader --namespace stocktrader -f ./installation/default_stocktrader_values.yaml ./helm-chart/ --set trader.image.tag=basicregistry
 ```
 
 ## Verification
