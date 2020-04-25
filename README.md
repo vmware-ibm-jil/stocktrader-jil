@@ -87,6 +87,8 @@ remote: Total 142 (delta 3), reused 17 (delta 3), pack-reused 117
 Receiving objects: 100% (142/142), 116.13 KiB | 0 bytes/s, done.
 Resolving deltas: 100% (23/23), done.
 Checking connectivity... done.
+
+$ git fetch && git checkout v2.0
 ```
 
 ### Platform
