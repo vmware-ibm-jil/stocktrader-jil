@@ -52,21 +52,14 @@ $ oc policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:til
 $ oc adm policy add-scc-to-user privileged -n stocktrader -z default
 ```
 
+Here are the steps to install Helm 3 on OpenShift.
+```
+# curl -L https://mirror.openshift.com/pub/openshift-v4/clients/helm/latest/helm-linux-amd64 -o /usr/local/bin/helm
+# chmod +x /usr/local/bin/helm
+$ helm version
+```
+
 Refer this link [Steps to set up the Helm CLI to work with Openshift Container Platform.](https://blog.openshift.com/getting-started-helm-openshift/)
-
-We need to add the IBM Helm chart repository to our local Helm chart repositories:
-
-```
-$ helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
-"ibm-charts" has been added to your repositories
-$ helm repo list
-NAME                    	URL                                                                                                      
-stable                  	https://kubernetes-charts.storage.googleapis.com                                                         
-local                   	http://127.0.0.1:8879/charts                                                                             
-ibm-charts              	https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
-```
-
-(\*) If you don't have a **stable** Helm repo pointing to https://kubernetes-charts.storage.googleapis.com, please add it too using:
 
 ```
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com
@@ -144,7 +137,7 @@ We are set to use external db2 server.
 1. Install Redis using the [default_redis_values.yaml](installation/default_redis_values.yaml) file:
 
 ```
-$ helm install -n st-redis --namespace stocktrader stable/redis -f installation/default_redis_values.yaml
+$ helm install -name st-redis --namespace stocktrader stable/redis -f installation/default_redis_values.yaml
 ```
 
 **IMPORTANT:** The Redis instance installed is a non-persistent non-HA Redis deployment
@@ -154,7 +147,7 @@ $ helm install -n st-redis --namespace stocktrader stable/redis -f installation/
 1. Install IBM Operational Decision Manager (ODM) using the [default_odm_values.yaml](installation/default_odm_values.yaml) file:
 
 ```
-$ helm install -n st-odm --namespace stocktrader ibm-charts/ibm-odm-dev -f installation/default_odm_values.yaml
+$ helm install -name st-odm --namespace stocktrader ibm-charts/ibm-odm-dev -f installation/default_odm_values.yaml
 ```
 
 **Note:** For more details to configure the IBM ODM refer this [link](https://github.com/ibm-cloud-architecture/stocktrader-app/tree/v2#ibm-odm)
@@ -177,7 +170,7 @@ echo -n "<the_value_you_want_to_encode>" | base64
 **TIP:** Remember you can use the **--set variable=value** to overwrite values within the [default_stocktrader_values.yaml](installation/default_stocktrader_values.yaml) file.
 
 ```
-$ helm install -n trader --namespace stocktrader -f ./installation/default_stocktrader_values.yaml ./helm-chart/ --set trader.image.tag=basicregistry
+$ helm install -name trader --namespace stocktrader -f ./installation/default_stocktrader_values.yaml ./helm-chart/ --set trader.image.tag=basicregistry
 ```
 
 ## Verification
@@ -242,9 +235,16 @@ Since we have used `Helm` to install both the IBM StockTrader Application and th
 
 As an example, in order to delete all the IBM StockTrader Application pieces installed by its Helm chart when we installed them as the `test` Helm release:
 
+Following command is for Helm 2.
 ```
 $ helm delete test --purge
 release "test" deleted
+```
+
+Following command is for Helm 3.
+```
+$ helm uninstall test
+release "test" uninstalled
 ```
 
 ## Files
