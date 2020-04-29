@@ -63,6 +63,8 @@ Refer this link [Steps to set up the Helm CLI to work with Openshift Container P
 
 ```
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com
+$ helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
+$ helm repo list
 ```
 
 ## Installation
