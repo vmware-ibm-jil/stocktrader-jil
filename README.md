@@ -2,11 +2,11 @@
 
 1.  [Introduction](#introduction)
 2.  [Prerequisites](#Prerequisites)
+    - [Helm](#helm)
 3.  [Installation](#installation)
     - [Get The Code](#get-the-code)
     - [Platform](#platform)
     - [Middleware](#middleware) 
-      - [Helm](#helm)
       - [IBM DB2](#ibm-db2)
       - [IBM ODM](#ibm-odm)
       - [Redis](#redis)
@@ -48,8 +48,6 @@ $ ./helm init --client-only
 $ oc process -f https://github.com/openshift/origin/raw/master/examples/helm/tiller-template.yaml -p TILLER_NAMESPACE="${TILLER_NAMESPACE}" -p HELM_VERSION=v2.14.1 | oc create -f -
 $ oc rollout status deployment tiller
 $ ./helm version
-$ oc policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:tiller"
-$ oc adm policy add-scc-to-user privileged -n stocktrader -z default
 ```
 
 Here are the steps to install Helm 3 on OpenShift.
@@ -57,6 +55,12 @@ Here are the steps to install Helm 3 on OpenShift.
 $ curl -L https://mirror.openshift.com/pub/openshift-v4/clients/helm/latest/helm-linux-amd64 -o /usr/local/bin/helm
 $ chmod +x /usr/local/bin/helm
 $ helm version
+```
+
+**Mandatory:** Privilege policy addition is mandatory in case of OpenShift platform.
+```
+$ oc policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:tiller"
+$ oc adm policy add-scc-to-user privileged -n stocktrader -z default
 ```
 
 Refer this link [Steps to set up the Helm CLI to work with Openshift Container Platform.](https://blog.openshift.com/getting-started-helm-openshift/)
@@ -71,7 +75,6 @@ $ helm repo list
 ### Get The Code
 
 Before anything else, we need to **clone this Github repository** onto our workstations in order to be able to use the scripts, files and tools mentioned throughout this readme. To do so, clone this GitHub repository to a convenient location for you:
-
 ```
 $ git clone https://github.com/vmware-ibm-jil/stocktrader-jil.git
 Cloning into 'stocktrader-jil'...
@@ -84,6 +87,17 @@ Resolving deltas: 100% (23/23), done.
 Checking connectivity... done.
 
 $ git fetch && git checkout v2.0
+```
+
+### Build stock-quote service
+These steps are not important to deploy the application. These are only needed if any change need to do in application and rebuild image. 
+Here ae the steps to recompile and rebuild stock-quote image:
+```
+# cd stocktrader-jil/src/stock-quote/
+# mvn package
+# docker build -t stock-quote:latest -t stocktraders/stock-quote:latest .
+# docker tag stock-quote:latest stocktraders/stock-quote:latest
+# docker push stocktraders/stock-quote:latest
 ```
 
 ### Platform
