@@ -37,7 +37,7 @@ The following installation instructions guide you through installing the depende
 ### Helm
  
 If don't have helm install, here are the steps to configure the v2.14.1 helm version with Openshift Container Platform:
-
+Refer this link [Steps to set up the Helm CLI to work with Openshift Container Platform.](https://blog.openshift.com/getting-started-helm-openshift/)
 ```
 $ export TILLER_NAMESPACE=stocktrader
 $ oc new-project $TILLER_NAMESPACE
@@ -58,13 +58,17 @@ $ helm version
 ```
 
 **Mandatory:** Privilege policy addition is mandatory in case of OpenShift platform.
+This step is for Helm 2
 ```
 $ oc policy add-role-to-user edit "system:serviceaccount:${TILLER_NAMESPACE}:tiller"
+```
+
+This step is required for both Helm 2 and Helm 3
+```
 $ oc adm policy add-scc-to-user privileged -n stocktrader -z default
 ```
 
-Refer this link [Steps to set up the Helm CLI to work with Openshift Container Platform.](https://blog.openshift.com/getting-started-helm-openshift/)
-
+Add below required helm repos.
 ```
 $ helm repo add stable https://kubernetes-charts.storage.googleapis.com
 $ helm repo add ibm-charts https://raw.githubusercontent.com/IBM/charts/master/repo/stable/
@@ -87,17 +91,6 @@ Resolving deltas: 100% (23/23), done.
 Checking connectivity... done.
 
 $ git fetch && git checkout v2.0
-```
-
-### Build stock-quote service
-These steps are not important to deploy the application. These are only needed if any change need to do in application and rebuild image. 
-Here ae the steps to recompile and rebuild stock-quote image:
-```
-# cd stocktrader-jil/src/stock-quote/
-# mvn package
-# docker build -t stock-quote:latest -t stocktraders/stock-quote:latest .
-# docker tag stock-quote:latest stocktraders/stock-quote:latest
-# docker push stocktraders/stock-quote:latest
 ```
 
 ### Platform
