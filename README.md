@@ -14,6 +14,7 @@
 4.  [Verification](#verification)
 5.  [Uninstallation](#uninstallation)
 6.  [Files](#files)
+7.  [Troubleshooting](#troubleshooting)
 
 
 ## Introduction
@@ -136,7 +137,9 @@ Here we are going to use the external db2 server.
 $ sudo docker pull stocktraders/st-db2
 $ sudo docker run -itd --name mydb2 --privileged=true -p 50000:50000 -e LICENSE=accept -e DB2INST1_PASSWORD=db2inst1 -e DBNAME=STOCKTRD -v /data:/database stocktraders/st-db2
 $ sudo docker exec -ti mydb2 bash -c "su - db2inst1"
+$ bash /var/custom/db2.sh
 ```
+
 4. Update this [default_stocktrader_values.yaml](installation/default_stocktrader_values.yaml) file, replace the value of host to DB2 Server IP in db2 section.
 
 We are set to use external db2 server.
@@ -268,3 +271,22 @@ This section will describe each of the files presented in this repository.
 
 - [default_redis_values.yaml](installation/default_redis_values.yaml): tailored Redis Helm chart values file with the default values that the IBM StockTrader Helm chart expects.
 - [default_odm_values.yaml](installation/default_odm_values.yaml): tailored IBM Operation Decision Manager (ODM) Helm chart values file with the default values that the IBM StockTrader Helm chart expects.
+
+
+## Troubleshooting:
+
+**500 error while login**
+
+Check if the database STOCKTRD is get created. And in STOCKTRD tables Portfolio and Stock are present.
+```
+$ sudo docker exec -ti mydb2 bash -c "su - db2inst1"
+$ db2
+db2# \dt
+db2# connect to STOCKTRD
+db2# list tables
+```
+If tables are not in database follow the below steps,
+```
+$ sudo docker exec -ti mydb2 bash -c "su - db2inst1"
+$ bash /var/custom/db2.sh
+```
